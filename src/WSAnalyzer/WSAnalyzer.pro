@@ -10,7 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = WSAnalyzer
 TEMPLATE = app
-INCLUDEPATH += ../common ./capanalyzer ./hex
+INCLUDEPATH += ../common ./capanalyzer ./hex ../common/mms
 win32{
 DEFINES += OS_WINDOWS
 DEFINES -= UNICODE
