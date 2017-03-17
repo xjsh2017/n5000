@@ -9,9 +9,10 @@
 #include "LibpCapFileMnger.h"
 #include "dlgpktfiltercondition.h"
 #include "stores/waveanaldatamodel.h"
+#include "stores/qxjquickwidget.h"
 
 #include <QFileDialog>
-#include <QQuickWidget>
+//#include <QQuickWidget>
 #include <QQuickView>
 #include <QQmlEngine>
 #include <QQmlContext>
@@ -54,6 +55,7 @@ linkBriefTableView::linkBriefTableView(QWidget *parent) :
 linkBriefTableView::~linkBriefTableView()
 {
     delete m_qwWaveData;
+    delete m_qwWaveAnal;
     delete ui;
 }
 
@@ -176,7 +178,7 @@ void linkBriefTableView::UpdateWaveAnalDataModel(CapPackagesMnger *m_cappackages
     // 波形图
     int idx = -1;
     if(!m_qwWaveAnal){
-        m_qwWaveAnal = new QQuickWidget();
+        m_qwWaveAnal = new QXJQuickWidget(this);
         m_qwWaveAnal->setObjectName(QStringLiteral("qwWaveAnal"));
         m_qwWaveAnal->setResizeMode(QQuickWidget::SizeRootObjectToView );
         m_qwWaveAnal->setSource(QUrl("qrc:/quick/WSDataAnal.qml"));

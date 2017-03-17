@@ -119,7 +119,7 @@ FORMS    += mainwindow.ui \
 
 ########################
 
-QT += quickwidgets quick
+QT += quickwidgets
 
 INCLUDEPATH += $$[QT_INSTALL_QML]/XjUi
 include($$[QT_INSTALL_QML]/XjUi/stores/stores.pri)
