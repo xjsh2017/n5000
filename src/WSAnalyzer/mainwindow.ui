@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QMdiArea" name="centralWidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::NoContextMenu</enum>
+   </property>
+   <property name="autoFillBackground">
+    <bool>true</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">selection-color: rgb(30, 218, 255);</string>
+   </property>
+   <property name="viewMode">
+    <enum>QMdiArea::TabbedView</enum>
+   </property>
+   <property name="tabsClosable">
+    <bool>true</bool>
+   </property>
+   <property name="tabsMovable">
+    <bool>true</bool>
+   </property>
+   <property name="tabShape">
+    <enum>QTabWidget::Rounded</enum>
+   </property>
+   <property name="tabPosition">
+    <enum>QTabWidget::North</enum>
+   </property>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>文件</string>
+    </property>
+    <addaction name="OpenFile"/>
+    <addaction name="separator"/>
+    <addaction name="actionSaveAs"/>
+    <addaction name="separator"/>
+    <addaction name="actionOpenMulti"/>
+    <addaction name="actionOpenedFiles"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>设置</string>
+    </property>
+    <addaction name="actionTime"/>
+    <addaction name="separator"/>
+    <addaction name="actionGOOSE"/>
+    <addaction name="actionSV"/>
+    <addaction name="actionMMS"/>
+    <addaction name="separator"/>
+    <addaction name="actionSCD"/>
+   </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="title">
+     <string>统计</string>
+    </property>
+    <addaction name="actionReport"/>
+   </widget>
+   <widget class="QMenu" name="menu_4">
+    <property name="title">
+     <string>帮助</string>
+    </property>
+    <addaction name="action_5"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+   <addaction name="menu_3"/>
+   <addaction name="menu_4"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="OpenFile"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="OpenFile">
+   <property name="text">
+    <string>打开</string>
+   </property>
+  </action>
+  <action name="actionTime">
+   <property name="text">
+    <string>时间格式设置</string>
+   </property>
+  </action>
+  <action name="actionGOOSE">
+   <property name="text">
+    <string>GOOSE分析设置</string>
+   </property>
+  </action>
+  <action name="actionSV">
+   <property name="text">
+    <string>SMV分析设置</string>
+   </property>
+  </action>
+  <action name="actionMMS">
+   <property name="text">
+    <string>MMS分析设置</string>
+   </property>
+  </action>
+  <action name="actionSCD">
+   <property name="text">
+    <string>加载SCD文件</string>
+   </property>
+  </action>
+  <action name="actionReport">
+   <property name="text">
+    <string>流量统计</string>
+   </property>
+  </action>
+  <action name="action_5">
+   <property name="text">
+    <string>版本说明</string>
+   </property>
+  </action>
+  <action name="actionSaveAs">
+   <property name="text">
+    <string>文件另存为</string>
+   </property>
+  </action>
+  <action name="actionOpenMulti">
+   <property name="text">
+    <string>打开多文件</string>
+   </property>
+  </action>
+  <action name="actionOpenedFiles">
+   <property name="text">
+    <string>合并打开的文件</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
