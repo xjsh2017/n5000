@@ -26,7 +26,7 @@ detailedMessageView * exDetailedMessageView = NULL;
 linkBriefTableView::linkBriefTableView(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::linkBriefTableView),
-    m_qwWaveData(0), m_qwWaveAnal(0)
+    m_qwWaveData(0), m_qwWaveView(0)
 {
     ui->setupUi(this);
 
@@ -55,7 +55,7 @@ linkBriefTableView::linkBriefTableView(QWidget *parent) :
 linkBriefTableView::~linkBriefTableView()
 {
     delete m_qwWaveData;
-    delete m_qwWaveAnal;
+//    delete m_qwWaveView;
     delete ui;
 }
 
@@ -124,15 +124,11 @@ void linkBriefTableView::UpdateWaveAnalDataModel(CapPackagesMnger *m_cappackages
     if(0 == getSelectCapConnectInfo)
         return;
 
-    if (0 == m_qwWaveData)
-        m_qwWaveData = new WaveAnalDataModel();
-    else
-        m_qwWaveData->reset();
-
     qDebug() << "UpdateWaveAnalDataModel： begin to update chart data...";
 
     //准备采样数据
     MAP_CAPMSGINFO *pMapCapMsgInfo = &getSelectCapConnectInfo->map_capmsginfo;
+    CH_TIME_RELATIVE_LAST_STATIC &relastStatic = getSelectCapConnectInfo->m_tRelastStatic;
     int smpCount = pMapCapMsgInfo->size();
     QVector<double> x(smpCount), y(smpCount);
     SMV_INFO_STRUCT *pSMVInfo;
@@ -151,10 +147,31 @@ void linkBriefTableView::UpdateWaveAnalDataModel(CapPackagesMnger *m_cappackages
     pSMVInfo = (SMV_INFO_STRUCT*)(pMsgInfo->pparserdstruct);
     chn_count = pSMVInfo->p_asdu_info_struct->n_data_num;
 
+    //抬头
+    CWSSysconfig *wsSysconfig = CWSSysconfig::getInstance();
+    SNIFFER_APP * pIed = wsSysconfig->I_GET_IED_BYAPPID(pSMVInfo->n_app_id);
+    APP_CHANNEL_RELATION* pRelation = (!pIed ? NULL : wsSysconfig->I_GET_APP_4Y_CFGINFO(pIed->nsys_appsqe));
+
     //画所有通道波形图
-    m_qwWaveData->setChannelCount(chn_count);
+    if (0 == m_qwWaveData)
+        m_qwWaveData = new WaveAnalDataModel();
+
+    m_qwWaveData->reset(chn_count, smpCount);
+    QString json = "[";
     for(chn_index = 0; chn_index < chn_count; chn_index++)
     {
+        QString name, phase, unit, fratio;
+        if (pRelation && chn_index < pRelation->n_yc_channel_num){
+            name = QString::fromLocal8Bit(pRelation->pyc_channel_list[chn_index]->cdesc);
+            phase = pRelation->pyc_channel_list[chn_index]->cphase;
+            unit = pRelation->pyc_channel_list[chn_index]->cunits;
+            fratio = QString::number(pRelation->pyc_channel_list[chn_index]->fratio);
+        }
+        json += QString("{\"name\":\"%1\",\"phase\":\"%2\",\"unit\":\"%3\",\"fratio\":\"%4\"}")
+                .arg(name).arg(phase).arg(unit).arg(fratio);
+        if (chn_index != chn_count - 1)
+            json += ",";
+
         for(smp_index=0, iter = pMapCapMsgInfo->begin(); iter!=pMapCapMsgInfo->end();iter++, smp_index++)
         {
 
@@ -165,25 +182,66 @@ void linkBriefTableView::UpdateWaveAnalDataModel(CapPackagesMnger *m_cappackages
             x[smp_index] = smp_index;
             qreal y_val = pAsdu->p_smv_data_struct[chn_index].n_value;
             y[smp_index] = pAsdu->p_smv_data_struct[chn_index].n_value/10.0;// + chn_index*2000;
-//            if(smp_index > ui->wdtWave->xAxis->range().upper)
-//                break;
-            if (chn_index == 0)
-                m_qwWaveData->xAppend(smp_index);
-            m_qwWaveData->yAppend(chn_index, y_val);
+
+            if (chn_index == 0){
+                m_qwWaveData->setXData(smp_index, smp_index);
+            }
+            m_qwWaveData->setYData(chn_index, smp_index, y_val);
         }
     }
+    json +="]";
+//    qDebug() << json;
+    m_qwWaveData->setJson(json);
+
+    // 同步统计数据
+    QVector<qreal> st(31, 0.0f);
+    st[0] = relastStatic.n0us;
+    st[1] = relastStatic.n1us;
+    st[2] = relastStatic.n2us;
+    st[3] = relastStatic.n3us;
+    st[4] = relastStatic.n4us;
+    st[5] = relastStatic.n5us;
+    st[6] = relastStatic.n6us;
+    st[7] = relastStatic.n7us;
+    st[8] = relastStatic.n8us;
+    st[9] = relastStatic.n9us;
+    st[10] = relastStatic.n10us;
+    st[11] = relastStatic.nup11us;
+    st[12] = relastStatic.neg_n1us;
+    st[13] = relastStatic.neg_n2us;
+    st[14] = relastStatic.neg_n3us;
+    st[15] = relastStatic.neg_n4us;
+    st[16] = relastStatic.neg_n5us;
+    st[17] = relastStatic.neg_n6us;
+    st[18] = relastStatic.neg_n7us;
+    st[19] = relastStatic.neg_n8us;
+    st[20] = relastStatic.neg_n9us;
+    st[21] = relastStatic.neg_n10us;
+    st[22] = relastStatic.neg_nup11us;
+    st[23] = relastStatic.n4to10us;
+    st[24] = relastStatic.n11to25us;
+    st[25] = relastStatic.n25tous;
+    st[26] = getSelectCapConnectInfo->ftime_relative_first;
+    st[27] = getSelectCapConnectInfo->ftime_relative_last;
+    st[28] = getSelectCapConnectInfo->lTotalCapLenth;
+    st[29] = smpCount;
+    st[30] = pSMVInfo->n_app_id;
+    m_qwWaveData->setRelastStatic(st);
+    qDebug() << m_qwWaveData->relastStatic();
+
 
     QTabWidget *tabw = ui->tabMessageListWidget;
 
     // 波形图
     int idx = -1;
-    if(!m_qwWaveAnal){
-        m_qwWaveAnal = new QXJQuickWidget(this);
-        m_qwWaveAnal->setObjectName(QStringLiteral("qwWaveAnal"));
-        m_qwWaveAnal->setResizeMode(QQuickWidget::SizeRootObjectToView );
-        m_qwWaveAnal->setSource(QUrl("qrc:/quick/WSDataAnal.qml"));
-        m_qwWaveAnal->rootContext()->setContextProperty("waveModel", m_qwWaveData);
-        idx = tabw->addTab(m_qwWaveAnal, QStringLiteral("波形分析"));
+    if(!m_qwWaveView){
+        m_qwWaveView = new QXJQuickWidget(this);
+        m_qwWaveView->resize(300, 300);
+        m_qwWaveView->setObjectName(QStringLiteral("qwWaveAnal"));
+        m_qwWaveView->setResizeMode(QQuickWidget::SizeRootObjectToView );
+        m_qwWaveView->setSource(QUrl("qrc:/quick/WSDataAnal.qml"));
+        m_qwWaveView->rootContext()->setContextProperty("waveModel", m_qwWaveData);
+        idx = tabw->addTab(m_qwWaveView, QStringLiteral("波形分析"));
     }
     for (int i = 0; i < tabw->count(); i++){
         if(tabw->tabText(i) == QStringLiteral("波形分析")){
@@ -191,17 +249,14 @@ void linkBriefTableView::UpdateWaveAnalDataModel(CapPackagesMnger *m_cappackages
             break;
         }
     }
+
+    if (m_qwWaveData)
+        m_qwWaveData->sync();
 }
 
 void linkBriefTableView::currentChanged(int index)
 {
     messageView->setVisible(index == 0);
-
-    if(m_qwWaveData)
-    if (m_qwWaveData->test() == "1")
-        m_qwWaveData->setTest("0");
-    else
-        m_qwWaveData->setTest("1");
 }
 
 /**

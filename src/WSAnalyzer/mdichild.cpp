@@ -187,7 +187,7 @@ bool MdiChild::loadFile(const QString &fileName)
                 ui->splitter->setStretchFactor(0,2);
                 ui->splitter->setStretchFactor(1,8);
             }
-
+            QObject::connect(this,&MdiChild::wsUpdateWSAnalData,linkView,&linkBriefTableView::UpdateWaveAnalDataModel);
             QObject::connect(this,&MdiChild::wsWriteLinkMsgDetail,linkView,&linkBriefTableView::receiveMsgDetail);
 
             emit wsWriteLinkMsgDetail(&m_anakit->m_cappackagesmnger,NULL,CAPSHOW_DATATYE_ALL,PROTOAPPTYPE_TOTAL);
@@ -484,8 +484,7 @@ void MdiChild::OnMySelectTreeItem(QTreeWidgetItem *item, int column)
         if(getSelectCapConnectInfo != 0 && getSelectCapConnectInfo->nconnectapptype == PROTOAPPTYPE_SMV92
                 && CAPSHOW_DATATYE_ALL == nDataShowtype)
         {
-            QObject::connect(this,&MdiChild::wsUpdateWSAnalData,linkView,&linkBriefTableView::UpdateWaveAnalDataModel);
-//            qDebug() << "OnMySelectTreeItem： begin to show chart...";
+            qDebug() << "OnMySelectTreeItem： begin to show chart...";
             emit wsUpdateWSAnalData(NULL,getSelectCapConnectInfo,nDataShowtype,linkType);
         }
     }

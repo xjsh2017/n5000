@@ -42,7 +42,7 @@ private:
     Ui::linkBriefTableView *ui;
     detailedMessageView *messageView;
 
-    QQuickWidget *m_qwWaveAnal; // 波形分析图
+    QQuickWidget *m_qwWaveView; // 波形分析图
     WaveAnalDataModel *m_qwWaveData; // 波形分析数据
 
 private:

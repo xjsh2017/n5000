@@ -1,4 +1,4 @@
-#pragma warning(disable : 4275)
+ï»¿#pragma warning(disable : 4275)
 	#pragma execution_character_set("UTF-8")
 #include "xjlib.h"
 
@@ -60,7 +60,7 @@ void xj_thread_exit(unsigned int retval)
 	_endthreadex(retval);
 }
 
-//´´½¨Ïß³Ì£¬Ä¬ÈÏdetach×´Ì¬¡£//0:³É¹¦;    ÆäËû:Ê§°Ü
+//åˆ›å»ºçº¿ç¨‹ï¼Œé»˜è®¤detachçŠ¶æ€ã€‚//0:æˆåŠŸ;    å…¶ä»–:å¤±è´¥
 int pro_create_thread(THREAD_HANDLE *phandle, THREAD_ID *pid, XJ_THREAD_ROUTINE routine, void *param)
 {
 	int nRet=0;
@@ -231,7 +231,7 @@ int xj_free_library(XJHANDLE handle)
 	return 0;
 }
 
-//NULLÎŞ´íÎó,·ñÔòÓĞ´íÎó
+//NULLæ— é”™è¯¯,å¦åˆ™æœ‰é”™è¯¯
 char *xj_get_liberror()
 {
 	/*
@@ -423,7 +423,7 @@ void xj_thread_exit(unsigned int retval)
 	pthread_exit((void *)retval);
 }
 
-//´´½¨Ïß³Ì£¬Ä¬ÈÏdetach×´Ì¬¡£//0:³É¹¦;    ÆäËû:Ê§°Ü
+//åˆ›å»ºçº¿ç¨‹ï¼Œé»˜è®¤detachçŠ¶æ€ã€‚//0:æˆåŠŸ;    å…¶ä»–:å¤±è´¥
 int pro_create_thread(THREAD_HANDLE *phandle, THREAD_ID *pid, XJ_THREAD_ROUTINE routine, void *param)
 {
 	int nRet=0;
@@ -613,7 +613,7 @@ int xj_free_library(XJHANDLE handle)
 		return 0;
 }
 
-//NULLÎŞ´íÎó,·ñÔòÓĞ´íÎó
+//NULLæ— é”™è¯¯,å¦åˆ™æœ‰é”™è¯¯
 char *xj_get_liberror()
 {
 	return dlerror();
@@ -816,7 +816,7 @@ BOOL isCommenceApi(char *pszBuff)
 	
 	if (NULL == pszBuff)
 	{
-		return TRUE;	// ¿Õ´®£¬ÅĞÎªĞĞ×¢ÊÍ¡£
+		return TRUE;	// ç©ºä¸²ï¼Œåˆ¤ä¸ºè¡Œæ³¨é‡Šã€‚
 	}
 	else
 	{
@@ -835,14 +835,14 @@ BOOL isCommenceApi(char *pszBuff)
 	
 	if (strcmp(szTempBuff, (char*)"sum") == 0) 
 	{
-		return TRUE;	// sum£¬ÅĞÎªĞĞ×¢ÊÍ¡£
+		return TRUE;	// sumï¼Œåˆ¤ä¸ºè¡Œæ³¨é‡Šã€‚
 	}
 	
 	if ((szTempBuff[0] == ';') || 
 		((szTempBuff[0] == '/') && (szTempBuff[1] == '/')) || 
 		((szTempBuff[0] == '/') && (szTempBuff[1] == '*'))) 
 	{
-		return TRUE;	// ;¡¢//ºÍ/*£¬ÅĞÎªĞĞ×¢ÊÍ¡£
+		return TRUE;	// ;ã€//å’Œ/*ï¼Œåˆ¤ä¸ºè¡Œæ³¨é‡Šã€‚
 	}
 	else
 	{	
@@ -867,7 +867,7 @@ unsigned int GetPrivateProfileStr(
 	char    st2[XJLIB_MAX_CHAR_BUFF],st3[XJLIB_MAX_CHAR_BUFF];
 	char	string[XJLIB_MAX_CHAR_BUFF];
 
-	// ÓÃÄ¬ÈÏ´®³õÊ¼»¯Ä¿µÄ»º³åÇø
+	// ç”¨é»˜è®¤ä¸²åˆå§‹åŒ–ç›®çš„ç¼“å†²åŒº
 	uReturnedLen = strlen(pszDefaultStr);
 	if (uReturnedLen >= uSize)
 	{
@@ -879,19 +879,19 @@ unsigned int GetPrivateProfileStr(
 	pFile = fopen(pszFileName, "r");
 	if (NULL == pFile)
 	{
-		return uReturnedLen;	// ·µ»ØÄ¬ÈÏ´®³¤¶È
+		return uReturnedLen;	// è¿”å›é»˜è®¤ä¸²é•¿åº¦
 	}
 
-	while (fgets(st, XJLIB_MAX_CHAR_BUFF, pFile) != NULL)	// ´ÓÎÄ¼şÈ¡Ò»¸ö×Ö·û´®
+	while (fgets(st, XJLIB_MAX_CHAR_BUFF, pFile) != NULL)	// ä»æ–‡ä»¶å–ä¸€ä¸ªå­—ç¬¦ä¸²
 	{
 		if (isCommenceApi(st) == TRUE)
 		{
-			continue ;	// ĞĞ×¢ÊÍ
+			continue ;	// è¡Œæ³¨é‡Š
 		}
 
-		sscanf(st, "%s,%s", st1, st2);	// ¸ñÊ½»¯µ½´®st1ºÍst2
+		sscanf(st, "%s,%s", st1, st2);	// æ ¼å¼åŒ–åˆ°ä¸²st1å’Œst2
 
-		//²éÕÒsection¼üÃû
+		//æŸ¥æ‰¾sectioné”®å
 		if (FALSE == bHead)
 		{
 			if (('[' == st1[0]) && (']' == st1[strlen(st1)-1])) 
@@ -902,7 +902,7 @@ unsigned int GetPrivateProfileStr(
 
 				if (strcmp((char*)st1, (char*)st3) == 0)
 				{
-					bHead = TRUE;	// ·¢ÏÖsection
+					bHead = TRUE;	// å‘ç°section
 				}
 			}
 
@@ -911,11 +911,11 @@ unsigned int GetPrivateProfileStr(
 
 		if ('[' == st1[0]) 
 		{
-			fclose(pFile);	// ¸ÃsectionÃ»ËÑË÷µ½Keyname¼üÃû
+			fclose(pFile);	// è¯¥sectionæ²¡æœç´¢åˆ°Keynameé”®å
 			return uReturnedLen;
 		}
 
-		for (i=0; i<strlen(st); i++)	// Ñ­»·ËÑË÷Keyname¼üÃû
+		for (i=0; i<strlen(st); i++)	// å¾ªç¯æœç´¢Keynameé”®å
 		{
 			string[i] = st1[i];
 
@@ -925,12 +925,12 @@ unsigned int GetPrivateProfileStr(
 				if (strcmp(pszKeyName, (char*)string) != 0)
 				{
 					strcpy(string, (char*)"");
-					break;	//Ìø¹ıÒ»¸ö¼ü
+					break;	//è·³è¿‡ä¸€ä¸ªé”®
 				}
-				else	//ÕÒµ½
+				else	//æ‰¾åˆ°
 				{
-					strcpy((char*)string, &st1[i+1]);	// ¿½±´´®
-					sscanf(string, "%s%s", st2, st3);	// ¸ñÊ½»¯´®
+					strcpy((char*)string, &st1[i+1]);	// æ‹·è´ä¸²
+					sscanf(string, "%s%s", st2, st3);	// æ ¼å¼åŒ–ä¸²
 
 					uReturnedLen = strlen(st2);
 					if (uReturnedLen >= uSize)
@@ -938,7 +938,7 @@ unsigned int GetPrivateProfileStr(
 						uReturnedLen = uSize-1;
 					}
                     memset((void*)pszReturnedStr, 0, uSize);
-                    strncpy((char*)pszReturnedStr, (char*)st2, uReturnedLen);	// È¡´®Öµ
+                    strncpy((char*)pszReturnedStr, (char*)st2, uReturnedLen);	// å–ä¸²å€¼
 
 					fclose(pFile);
 					return uReturnedLen;
@@ -948,7 +948,7 @@ unsigned int GetPrivateProfileStr(
 	}
 
 	fclose(pFile);
-	return uReturnedLen;	// ËÑË÷ÎÄ¼ş½áÊø£¬²¢·µ»Ø¡£
+	return uReturnedLen;	// æœç´¢æ–‡ä»¶ç»“æŸï¼Œå¹¶è¿”å›ã€‚
 }
 
 int GetPrivateProfileint(
@@ -966,7 +966,7 @@ int GetPrivateProfileint(
 	char    st2[XJLIB_MAX_CHAR_BUFF],st3[XJLIB_MAX_CHAR_BUFF];
 	char	string[XJLIB_MAX_CHAR_BUFF];//define buffer
 
-	// ÓÃÄ¬ÈÏÖµ³õÊ¼»¯¹é»¹Öµ
+	// ç”¨é»˜è®¤å€¼åˆå§‹åŒ–å½’è¿˜å€¼
 	nReturnedLen = nDefaultValue;
 	
 	pFile = fopen(pszFileName, "r");
@@ -1001,7 +1001,7 @@ int GetPrivateProfileint(
 			continue;
 		}
 
-		if ('[' == st1[0]) //Î´ËÑË÷µ½
+		if ('[' == st1[0]) //æœªæœç´¢åˆ°
 		{
 			fclose(pFile);
 			return nReturnedLen;
@@ -1019,7 +1019,7 @@ int GetPrivateProfileint(
 					strcpy(string, (char*)"");
 					break;
 				}
-				else	//ÕÒµ½
+				else	//æ‰¾åˆ°
 				{
 					strcpy((char*)string, &st1[i+1]);	//
 					sscanf(string, "%s%s", st2, st3);
@@ -1049,7 +1049,7 @@ int GetPrivateProfileEqualint(
 	char    st2[XJLIB_MAX_CHAR_BUFF],st3[XJLIB_MAX_CHAR_BUFF];
 	char	string[XJLIB_MAX_CHAR_BUFF];//define buffer
 
-	// ÓÃÄ¬ÈÏÖµ³õÊ¼»¯¹é»¹Öµ
+	// ç”¨é»˜è®¤å€¼åˆå§‹åŒ–å½’è¿˜å€¼
 	nReturnedLen = nDefaultValue;
 	
 	pFile = fopen(pszFileName, "r");
@@ -1078,7 +1078,7 @@ int GetPrivateProfileEqualint(
 					strcpy(string, (char*)"");
 					break;
 				}
-				else	//ÕÒµ½
+				else	//æ‰¾åˆ°
 				{
 					strcpy((char*)string, &st1[i+1]);//copy string
 					sscanf(string, "%s%s", st2, st3);
@@ -1121,24 +1121,24 @@ int xj_modify_time(xj_systime *psystime=NULL, unsigned short wMilliseconds=0, ch
 	if (t == -1)
 		return -1;
 
-	tv.tv_sec = t;	//Ãë
-	tv.tv_usec = psystime->wMilliseconds*1000;	//Î¢Ãë
+	tv.tv_sec = t;	//ç§’
+	tv.tv_usec = psystime->wMilliseconds*1000;	//å¾®ç§’
 
 	if (op=='+')
 	{
-		tv.tv_usec += wMilliseconds*1000;	//Î¢Ãë
+		tv.tv_usec += wMilliseconds*1000;	//å¾®ç§’
 		
-		tv.tv_sec += tv.tv_usec/1000000;	//Ãë
-		tv.tv_usec = tv.tv_usec%1000000;	//Î¢Ãë
+		tv.tv_sec += tv.tv_usec/1000000;	//ç§’
+		tv.tv_usec = tv.tv_usec%1000000;	//å¾®ç§’
 	}
 	else if (op=='-')
 	{
-		seconds=wMilliseconds/1000;			//Ãë
-		wMilliseconds=wMilliseconds%1000;	//ºÁÃë
+		seconds=wMilliseconds/1000;			//ç§’
+		wMilliseconds=wMilliseconds%1000;	//æ¯«ç§’
 
-		tv.tv_sec -= seconds;				//Ãë
+		tv.tv_sec -= seconds;				//ç§’
 
-		int nTempValue = wMilliseconds*1000;	//Î¢Ãë
+		int nTempValue = wMilliseconds*1000;	//å¾®ç§’
 
 		if (tv.tv_usec >= nTempValue)
 		{
@@ -1196,12 +1196,12 @@ time_t xjtime_to_timet(xj_systime *psystime=NULL)
 	return mktime(&tm_systime);
 }
 /*
- * Ê±¼ä×ª»»º¯Êı£¬´«Èë×Ô1970Äê1ÔÂ1ÈÕÁãµãµÄÃëÊıºÍÎ¢Ãë£¬Éú³ÉÒ×¶ÁµÄ×Ö·û´®
- * ²ÎÊı str ÖÁÉÙ¿É´æ´¢27¸ö×Ö·û
+ * æ—¶é—´è½¬æ¢å‡½æ•°ï¼Œä¼ å…¥è‡ª1970å¹´1æœˆ1æ—¥é›¶ç‚¹çš„ç§’æ•°å’Œå¾®ç§’ï¼Œç”Ÿæˆæ˜“è¯»çš„å­—ç¬¦ä¸²
+ * å‚æ•° str è‡³å°‘å¯å­˜å‚¨27ä¸ªå­—ç¬¦
  */
 void time_to_string(int sec, int us, char *str)
 {
-    time_t timer = sec;//time_t¾ÍÊÇlong int ÀàĞÍ
+    time_t timer = sec;//time_tå°±æ˜¯long int ç±»å‹
     struct tm *t1;
     t1 = localtime(&timer);
     sprintf(str, "%04d-%02d-%02d %02d:%02d:%02d.%06d",

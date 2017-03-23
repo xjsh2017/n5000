@@ -1,4 +1,4 @@
-#ifndef _XJLIB_H_
+ï»¿#ifndef _XJLIB_H_
 #define _XJLIB_H_
 
 #include <string>
@@ -35,7 +35,7 @@ typedef int BOOL;
         #include <direct.h>
 
         /**
-        * @brief	‰^
+        * @brief	å¡£
         */
         #define OUTPUTAPI __stdcall
 
@@ -52,7 +52,7 @@ typedef int BOOL;
 #ifdef OS_LINUX
 
         /**
-        * @brief	‰^
+        * @brief	å¡£
         */
         #define OUTPUTAPI
 
@@ -63,7 +63,7 @@ typedef int BOOL;
         typedef void *(*XJ_THREAD_ROUTINE)(void *);
 
         /**
-        * @brief	‰^
+        * @brief	å¡£
         */
         typedef struct
         {
@@ -95,7 +95,7 @@ int xj_thread_create(THREAD_HANDLE *phandle, THREAD_ID *pid, XJ_THREAD_ROUTINE r
 
 /**
 * @name		xj_thread_detach
-* @brief	§Ù
+* @brief	Ð·
 * @param	phandle	
 * @return	0
 * @note
@@ -114,7 +114,7 @@ int xj_thread_join(THREAD_HANDLE phandle, void **pretcode);
 
 /**
 * @name		xj_thread_exit
-* @brief	§³
+* @brief	Ð¡
 * @param  retval	
 * @return	
 * @note
@@ -156,7 +156,7 @@ int xj_mutex_unlock(MUTEX *mutex);
 * @brief	
 * @param	mutex	
 * @return	0
-* @note		¨²
+* @note		Ãº
 */
 int xj_mutex_destroy(MUTEX *mutex);
 
@@ -184,7 +184,7 @@ int xj_cond_wait(MUTEX *mutex, HCOND *cond, int milliseconds);
 
 /**
 * @name		xj_cond_signal
-* @brief	§Ø
+* @brief	Ð¶
                         
 * @param	cond	
 * @return	0
@@ -194,8 +194,8 @@ int xj_cond_signal(HCOND *cond);
 
 /**
 * @name		xj_cond_broadcast
-* @brief	§Òcond§»¦Î
-                        §³
+* @brief	Ð±condÐ©Î¾
+                        Ð¡
 * @param	cond	
 * @return	0
 * @note
@@ -207,7 +207,7 @@ int xj_cond_broadcast(HCOND *cond);
 * @brief	
 * @param	cond	
 * @return	0
-* @note		¨²
+* @note		Ãº
 */
 int xj_cond_destroy(HCOND *cond);
 
@@ -229,7 +229,7 @@ int xj_noname_sem_init(HNSEM *sem, unsigned int value);
 * @brief	
 * @param	sem		
 * @return	0
-* @note		¨²
+* @note		Ãº
 */
 int xj_noname_sem_destroy(HNSEM *sem);
 
@@ -245,7 +245,7 @@ int xj_noname_sem_wait(HNSEM *sem);
 /**
 * @name		xj_noname_sem_post
 * @brief	
-                        §Ö
+                        Ðµ
 * @param	sem		
 * @return	0
 * @note
@@ -265,16 +265,16 @@ int xj_noname_sem_getvalue(HNSEM *sem);
 
 /**
 * @name		xj_load_library
-* @brief	³libmytest.so¡¤
+* @brief	ç¡°libmytest.soÂ·
 * @param	filename	
 * @return	NULLNULL
-* @note		¨´
+* @note		Ã¹
 */
 XJHANDLE xj_load_library(const char *filename);
 
 /**
 * @name		*xj_get_addr
-* @brief	ï…´¿
+* @brief	é£¬çº¯
 * @param	handle	xj_load_library()
 * @param	module	
 * @return	NULLNULL
@@ -287,13 +287,13 @@ void *xj_get_addr(XJHANDLE handle, const char *module);
 * @brief	
 * @param	handle	
 * @return	0
-* @note		¨´
+* @note		Ã¹
 */
 int xj_free_library(XJHANDLE handle);
 
 /**
 * @name		*xj_get_liberror
-* @brief	¨°
+* @brief	Ã²
 * @return	
 * @note
 */
@@ -310,8 +310,8 @@ int xj_sleep(unsigned int milliseconds);
 
 /**
 * @name		xj_getlocaltime
-* @brief	‰
-* @param	psystime	¨
+* @brief	äº¯
+* @param	psystime	ä»º
 * @return	0
 * @note
 */
@@ -319,8 +319,8 @@ int xj_getlocaltime(xj_systime *psystime);
 
 /**
 * @name		xj_setlocaltime
-* @brief	‰
-* @param	psystime	¨
+* @brief	äº¯
+* @param	psystime	ä»º
 * @return	0
 * @note
 */
@@ -328,7 +328,7 @@ int xj_setlocaltime(const xj_systime *psystime);
 
 /**
 * @name		xj_pathfile_exist
-* @brief	§Ø
+* @brief	Ð¶
 * @param	pathfile	
 * @return	00
 * @note
@@ -337,43 +337,43 @@ int xj_pathfile_exist(const char *pathfile);
 
 /**
 * @name		xj_pathfile_exec
-* @brief	§Ø
+* @brief	Ð¶
 * @param	pathfile	
-* @return	0§µ0
+* @return	0Ð£0
 * @note
 */
 int xj_pathfile_exec(const char *pathfile);
 
 /**
 * @name		xj_pathfile_rw
-* @brief	§Ø§Ø§Õ
+* @brief	Ð¶Ð¶Ð´
 * @param	pathfile	
-* @return	0§µ0
+* @return	0Ð£0
 * @note
 */
 int xj_pathfile_rw(const char *pathfile);
 
 /**
 * @name		xj_get_file_size
-* @brief	§³¦Ëbyte
+* @brief	Ð¡Î»byte
 * @param	file_name	
-* @return	>=0§³-1
+* @return	>=0Ð¡-1
 * @note
 */
 int xj_get_file_size(const char *file_name);
 
 /**
 * @name		xj_create_local_dir
-* @brief	¡¤
-* @param	szPath	¡¤¡¤¡¤¡¤¡¤'.'
+* @brief	Â·
+* @param	szPath	Â·Â·Â·Â·Â·'.'
 * @return	TRUEFALSE
-* @note		¡¤linux'/'Windows'\'
+* @note		Â·linux'/'Windows'\'
 */
 BOOL xj_create_local_dir(char *szPath);
 
 /**
 * @name		isCommenceApi
-* @brief	§Øsum;//
+* @brief	Ð¶sum;//
 *			
 * @param	pszBuff	
 * @return	TRUE FALSE 
@@ -383,12 +383,12 @@ BOOL isCommenceApi(char *pszBuff);
 
 /**
 * @name		GetPrivateProfileStr
-* @brief	§³sectionpszKeyName
+* @brief	Ð¡sectionpszKeyName
 * @param	pszSectorName	section
 * @param	pszKeyName		KeyName
 * @param	pszDefaultStr	
 * @param	pszReturnedStr	
-* @param	uSize			§³
+* @param	uSize			Ð¡
 * @param	pszFileName		
 * @return	
 * @note		
@@ -403,7 +403,7 @@ unsigned int GetPrivateProfileStr(const char *pszSectorName,
 
 /**
 * @name		GetPrivateProfileint
-* @brief	§³sectionpszKeyName
+* @brief	Ð¡sectionpszKeyName
 * @param	pszSectorName	section
 * @param	pszKeyName		KeyName
 * @param	nDefaultValue	
@@ -419,7 +419,7 @@ int GetPrivateProfileint(const char *pszSectorName,
 
 /**
 * @name		GetPrivateProfileEqualint
-* @brief	§µpszKeyName
+* @brief	Ð£pszKeyName
 * @param	pszKeyName		KeyName
 * @param	nDefaultValue	
 * @param	pszFileName		
@@ -434,7 +434,7 @@ int GetPrivateProfileEqualint(
 
 /**
 * @name		xj_modify_time
-* @brief	§Ü
+* @brief	Ðº
 * @param	psystime		NULL
 * @param	wMilliseconds	0
 * @param	op				'+''-''+'
@@ -455,7 +455,7 @@ time_t xjtime_to_timet(xj_systime *psystime);
 
 /**
  * @name   time_to_string
- * @brief  197011  str ›¥27
+ * @brief  197011  str æ´¢27
  * @param  sec  since 1970-1-1 0:0:0
  * @param  us
  * @param  str

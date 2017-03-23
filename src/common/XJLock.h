@@ -1,4 +1,4 @@
-/********************************************************************
+ï»¿/********************************************************************
 	created:	2008/09/18
 	created:	17:9:2008   14:37
 	file base:	XJLock
@@ -13,11 +13,11 @@
 #include "Lock.h"
 
 /**
- * @defgroup 	CLockableObject	ÀàËµÃ÷
+ * @defgroup 	CLockableObject	ç±»è¯´æ˜
  * @{
  */
 /**
- * @brief       ¿ÉËø¶¨¶ÔÏó»ùÀà
+ * @brief       å¯é”å®šå¯¹è±¡åŸºç±»
 *  @author      qingch
  * @version     ver1.0
  * @date        20/09/08
@@ -31,34 +31,34 @@
 class CLockableObject {
 public:
     /*
-     *  @brief   	¹¹Ôìº¯Êı 
-     *  @return 	ÎŞ 
+     *  @brief   	æ„é€ å‡½æ•° 
+     *  @return 	æ—  
      */
 	CLockableObject()	{}
     /*
-     *  @brief   	Îö¹¹º¯Êı
-     *  @return 	ÎŞ 
+     *  @brief   	ææ„å‡½æ•°
+     *  @return 	æ—  
      */
 	virtual ~CLockableObject(){}
     /*
-     *  @brief   	Ëø¶¨ 
-     *  @return 	bool True-³É¹¦ False-Ê§°Ü 
+     *  @brief   	é”å®š 
+     *  @return 	bool True-æˆåŠŸ False-å¤±è´¥ 
      */
 	virtual bool Lock() = 0;
     /*
-     *  @brief   	½â³ıËø¶¨ 
-     *  @return 	bool True-³É¹¦ False-Ê§°Ü
+     *  @brief   	è§£é™¤é”å®š 
+     *  @return 	bool True-æˆåŠŸ False-å¤±è´¥
      */
 	virtual bool Unlock() = 0;
 };
 /** @} */ //OVER
 
 /**
- * @defgroup 	CLockUp	ÀàËµÃ÷
+ * @defgroup 	CLockUp	ç±»è¯´æ˜
  * @{
  */
 /**
- * @brief       ¿ÉËø¶¨¶ÔÏóµÄGuardÀà
+ * @brief       å¯é”å®šå¯¹è±¡çš„Guardç±»
 *  @author      qingch
  * @version     ver1.0
  * @date        20/09/08
@@ -72,31 +72,31 @@ public:
 class CLockUp {
 public:
     /*
-     *  @brief   	¹¹Ôìº¯Êı
-     *  @param 		[In/Out]CLockableObject*  ¿ÉËø¶¨¶ÔÏóÖ¸Õë
-     *  @return 	ÎŞ 
+     *  @brief   	æ„é€ å‡½æ•°
+     *  @param 		[In/Out]CLockableObject*  å¯é”å®šå¯¹è±¡æŒ‡é’ˆ
+     *  @return 	æ—  
      */
 	explicit CLockUp(CLockableObject* pLockable);
     /*
-     *  @brief   	Îö¹¹º¯Êı
-     *  @return 	ÎŞ 
+     *  @brief   	ææ„å‡½æ•°
+     *  @return 	æ—  
      */
 	~CLockUp();
 private:
-	CLockUp(const CLockUp&); //½ûÓÃcopy¹¹Ôìº¯Êı
-	CLockUp& operator= (const CLockUp&);//½ûÓÃassign²Ù×÷º¯Êı
-	/** @brief  		 ¿ÉËø¶¨¶ÔÏóÖ¸Õë */
+	CLockUp(const CLockUp&); //ç¦ç”¨copyæ„é€ å‡½æ•°
+	CLockUp& operator= (const CLockUp&);//ç¦ç”¨assignæ“ä½œå‡½æ•°
+	/** @brief  		 å¯é”å®šå¯¹è±¡æŒ‡é’ˆ */
 	CLockableObject* m_pLockable;
 };
 /** @} */ //OVER
 
 
 /**
- * @defgroup 	CXJLock	ÀàËµÃ÷
+ * @defgroup 	CXJLock	ç±»è¯´æ˜
  * @{
  */
 /**
- * @brief       CLockÀàµÄ°ü×°£¬¼ò»¯³õÊ¼»¯£¬É¾³ı²Ù×÷
+ * @brief       CLockç±»çš„åŒ…è£…ï¼Œç®€åŒ–åˆå§‹åŒ–ï¼Œåˆ é™¤æ“ä½œ
 *  @author      qingch
  * @version     ver1.0
  * @date        01/10/08
@@ -110,40 +110,40 @@ private:
 class CXJLock:public CLockableObject{
 public:
     /*
-     *  @brief   	¹¹Ôìº¯Êı
-     *  @param 		[In]const char*  ±êÖ¾ÊÇÄÇ¸öÄ£¿éÔÚÊ¹ÓÃ¸Ã»¥³âÌå
-     *  @return 	ÎŞ 
+     *  @brief   	æ„é€ å‡½æ•°
+     *  @param 		[In]const char*  æ ‡å¿—æ˜¯é‚£ä¸ªæ¨¡å—åœ¨ä½¿ç”¨è¯¥äº’æ–¥ä½“
+     *  @return 	æ—  
      */
 
 	explicit CXJLock(const char* pHost);
     /*
-     *  @brief   	Îö¹¹º¯Êı 
-     *  @return 	ÎŞ 
+     *  @brief   	ææ„å‡½æ•° 
+     *  @return 	æ—  
      */
 
 	virtual ~CXJLock();
     /*
-     *  @brief   	×èÈûÈ¡µÃËùÓĞÈ¨
-     *  @return 	bool True-³É¹¦ False-Ê§°Ü
+     *  @brief   	é˜»å¡å–å¾—æ‰€æœ‰æƒ
+     *  @return 	bool True-æˆåŠŸ False-å¤±è´¥
      */
 
 	virtual bool Lock();
     /*
-     *  @brief   	ÈÃ³öËùÓĞÈ¨
-     *  @return 	bool True-³É¹¦ False-Ê§°Ü
+     *  @brief   	è®©å‡ºæ‰€æœ‰æƒ
+     *  @return 	bool True-æˆåŠŸ False-å¤±è´¥
      */
 
 	virtual bool Unlock();
     /*
-     *  @brief   	·Ç×èÈûÈ¡µÃËùÓĞÈ¨ 
-     *  @return 	bool True-³É¹¦ False-Ê§°Ü
+     *  @brief   	éé˜»å¡å–å¾—æ‰€æœ‰æƒ 
+     *  @return 	bool True-æˆåŠŸ False-å¤±è´¥
      */
 
 	bool Trylock();
 private:
-	CXJLock(const CXJLock&); //½ûÓÃcopy¹¹Ôìº¯Êı
-	CXJLock& operator= (const CXJLock&); //½ûÓÃassign²Ù×÷º¯Êı
-	/** @brief  		 CLock»¥³âÌå¶ÔÏó */
+	CXJLock(const CXJLock&); //ç¦ç”¨copyæ„é€ å‡½æ•°
+	CXJLock& operator= (const CXJLock&); //ç¦ç”¨assignæ“ä½œå‡½æ•°
+	/** @brief  		 CLockäº’æ–¥ä½“å¯¹è±¡ */
 	CLock m_lock;
 };
 /** @} */ //OVER
