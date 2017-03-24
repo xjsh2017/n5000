@@ -12,9 +12,9 @@
 #ifndef ACSI_CRSCL_INCLUDED
 #define ACSI_CRSCL_INCLUDED
 
-#include "glbtypes.h"
-#include "sysincs.h"
-#include "scl.h"
+#include "../common/mms/glbtypes.h"
+#include "../common/mms/sysincs.h"
+#include "../common/mms/scl.h"
 #include "acsistruct.h"
 
 

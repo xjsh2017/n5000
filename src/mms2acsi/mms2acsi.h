@@ -12,8 +12,8 @@
 #ifndef MMS2ACSI_INCLUDED
 #define MMS2ACSI_INCLUDED
 
-#include "glbtypes.h"
-#include "sysincs.h"
+#include "../common/mms/glbtypes.h"
+#include "../common/mms/sysincs.h"
 #include "acsi_crscl.h"
 #include "acsistruct.h"
 #include "mmsstruct.h"
